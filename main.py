@@ -1,12 +1,17 @@
 import os
+import importlib
 
-from d00.dailyPuzzle import DailyPuzzle
+dailyPuzzles = ["d00"]
 
 if __name__ == "__main__":
 
-    puzzle = DailyPuzzle(os.path.join("d00", "input.txt"))
-    puzzle.parse_data()
-    puzzle.solve_part_one()
-    print(puzzle.part_one_result)
-    puzzle.solve_part_two()
-    print(puzzle.part_two_result)
+    for module in dailyPuzzles:
+
+        importedModule = importlib.import_module(module + ".dailyPuzzle")
+        puzzle = importedModule.DailyPuzzle(os.path.join(module, "input.txt"))
+        puzzle.parse()
+        puzzle.part_one()
+        print(puzzle.part_one_result)
+        puzzle.part_two()
+        print(puzzle.part_two_result)
+
