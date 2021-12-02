@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 # visual studio code environment
-.vscode/launch.json
+.vscode/
