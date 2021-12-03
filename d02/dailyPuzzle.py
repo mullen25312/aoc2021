@@ -1,7 +1,6 @@
 from dxx.superDailyPuzzle import SuperDailyPuzzle
 
 from itertools import combinations
-import numpy as np
 
 
 class DailyPuzzle(SuperDailyPuzzle):
