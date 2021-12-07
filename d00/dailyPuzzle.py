@@ -2,7 +2,7 @@ from dxx.superDailyPuzzle import SuperDailyPuzzle
 
 from itertools import combinations
 
-
+# advent of code 2020 day 1 as template
 class DailyPuzzle(SuperDailyPuzzle):
     def __init__(self, data_path):
         super().__init__(data_path)

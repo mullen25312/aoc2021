@@ -7,6 +7,6 @@ parse_res:
   - 675
   - 1456
 part_one_args:
-part_one_res: 514579
+part_one_result: 514579
 part_two_args:
-part_two_res: 241861950
+part_two_result: 241861950

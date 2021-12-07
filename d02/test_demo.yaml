@@ -11,6 +11,6 @@ parse_res:
   - 260
   - 263
 part_one_args:
-part_one_res: 7
+part_one_result: 150
 part_two_args:
-part_two_res: 5
+part_two_result: 900

@@ -1,92 +1,50 @@
-# import yaml
 import pytest
+import yaml
 import importlib
 import os
 
-# import unittest
+from itertools import product
 
-# from dxx.superDailyPuzzle import SuperDailyPuzzle
-
-
-# class TestConfig:
-#     parse_args: None
-#     part_one_args: None
-#     part_two_args: None
-
-#     parse_res: None
-#     part_one_res: None
-#     part_two_res: None
-
-#     # def __init__(self, config):
-#     #     if config == None:
-#     #         config = {}
-
-#     #     self.parse_args = config.get("parse_args") or {}
-#     #     self.part_one_args = config.get("part_one_args") or {}
-#     #     self.part_two_args = config.get("part_two_args") or {}
-
-#     #     self.parse_res = config.get("parse_res") or ""
-#     #     self.part_one_res = config.get("part_one_res") or ""
-#     #     self.part_two_res = config.get("part_two_res") or ""
+# tests to run
+days_to_be_tested = ["d00", "d01", "d02", "d03", "d04", "d05", "d06", "d07"]
+scenarios = ["demo", "input"]
+ids = tuple(f"{id[1]} -> {id[0]}" for id in product(days_to_be_tested, scenarios))
 
 
-# class Testing(unittest.TestCase):
+class TestConfig:
+    def __init__(self, config):
+        if config == None:
+            config = {}
+
+        self.parse_args = config.get("parse_args") or {}
+        self.part_one_args = config.get("part_one_args") or {}
+        self.part_two_args = config.get("part_two_args") or {}
+
+        self.parse_result = config.get("parse_result") or ""
+        self.part_one_result = config.get("part_one_result") or ""
+        self.part_two_result = config.get("part_two_result") or ""
+
+
+@pytest.fixture(scope="class", params=product(days_to_be_tested, scenarios), ids=ids)
+def prepar_test(request):
+    with open(os.path.join(request.param[0], f"test_{request.param[1]}.yaml"), "r") as file:
+        request.cls.test_config = TestConfig(yaml.load(file, Loader=yaml.FullLoader))
+
+    importedModule = importlib.import_module(f"{request.param[0]}.dailyPuzzle")
+    request.cls.puzzle = importedModule.DailyPuzzle(os.path.join(request.param[0], f"{request.param[1]}.txt"))
+
+
+@pytest.mark.usefixtures("prepar_test")
 class Tests_d00:
-    importedModule = importlib.import_module("d00" + ".dailyPuzzle")
-    puzzle = importedModule.DailyPuzzle(os.path.join("d00", "input.txt"))
-    # test_config: TestConfig
-    # puzzle: SuperDailyPuzzle
-
-    # def __init__(self, puzzle, config_path):
-    #     self.puzzle = puzzle
-    #     with open(config_path, "r") as file:
-    #         self.test_config = TestConfig(yaml.load(file, Loader=yaml.FullLoader))
-
-    # def setup(self):
-    #     pass
-
-    # def teardown(self):
-    #     pass
-
     def test_part_one(self):
         self.puzzle.parse()
         self.puzzle.part_one()
 
         # assert True  # self.puzzle.parsed == self.test_config.parse_res
-        assert self.puzzle.part_one_result == 542619
+        assert self.puzzle.part_one_result == self.test_config.part_one_result
 
     def test_part_two(self):
         self.puzzle.parse()
         self.puzzle.part_two()
         # assert True  # self.puzzle.parsed == self.test_config.parse_res
-        assert self.puzzle.part_two_result == 32858450
-
-
-class Tests_d01:
-    importedModule = importlib.import_module("d01" + ".dailyPuzzle")
-    puzzle = importedModule.DailyPuzzle(os.path.join("d01", "input.txt"))
-
-    def test_part_one(self):
-        self.puzzle.parse()
-        self.puzzle.part_one()
-        assert self.puzzle.part_one_result == 1692
-
-    def test_part_two(self):
-        self.puzzle.parse()
-        self.puzzle.part_two()
-        assert self.puzzle.part_two_result == 1724
-
-
-class Tests_d02:
-    importedModule = importlib.import_module("d02" + ".dailyPuzzle")
-    puzzle = importedModule.DailyPuzzle(os.path.join("d02", "input.txt"))
-
-    def test_part_one(self):
-        self.puzzle.parse()
-        self.puzzle.part_one()
-        assert self.puzzle.part_one_result == 2120749
-
-    def test_part_two(self):
-        self.puzzle.parse()
-        self.puzzle.part_two()
-        assert self.puzzle.part_two_result == 2138382217
+        assert self.puzzle.part_two_result == self.test_config.part_two_result
