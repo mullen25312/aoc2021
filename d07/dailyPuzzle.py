@@ -1,7 +1,5 @@
 from dxx.superDailyPuzzle import SuperDailyPuzzle
 
-from statistics import median
-
 
 def sum_of_ints(number):
     return number * (number + 1) // 2
