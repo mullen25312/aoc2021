@@ -1,0 +1,7 @@
+parse_args: "demo.txt"
+parse_res: 
+  skip: True
+part_one_args:
+part_one_result: 26397
+part_two_args:
+part_two_result: 288957
