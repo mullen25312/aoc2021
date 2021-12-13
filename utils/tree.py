@@ -1,3 +1,6 @@
+import copy
+
+
 class Tree:
     def __init__(self):
         self.children = {}
@@ -24,6 +27,17 @@ class Tree:
             return cnt + 1
         else:
             return cnt + sum([self.children[child].number_of_leaves(cnt) for child in self.children])
+
+    def number_of_specific_leaves(self, cnt=0, specific="end", chain=list()):
+        if not self.children and chain[-1] == specific:
+            return cnt + 1
+        else:
+            tmp = 0
+            for child in self.children:
+                tmp2 = copy.deepcopy(chain)
+                tmp2.append(child)
+                tmp += self.children[child].number_of_specific_leaves(cnt, specific, tmp2)
+            return cnt + tmp
 
     def print_tree(self, chain_str=""):
         if not self.children:
