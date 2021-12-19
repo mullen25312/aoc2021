@@ -4,9 +4,8 @@
 import os
 import importlib
 
-dailyPuzzles = ["d00", "d01", "d02", "d03", "d04", "d05", "d06", "d07", "d08", "d09", "d10", "d11", "d12", "d13"]
-dailyPuzzles = ["d00", "d13"]
-# dailyPuzzles = dailyPuzzles[-2:]
+dailyPuzzles = ["d00", "d01", "d02", "d03", "d04", "d05", "d06", "d07", "d08", "d09", "d10", "d11", "d12", "d13", "d14"]
+dailyPuzzles = dailyPuzzles[-2:]
 
 if __name__ == "__main__":
 
@@ -24,3 +23,4 @@ if __name__ == "__main__":
         print(f"####### {module} - results #######")
         print(puzzle.part_one_result)
         print(puzzle.part_two_result)
+        print(f"\n")
