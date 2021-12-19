@@ -12,6 +12,8 @@ ids = tuple(f"{id[1]} -> {id[0]}" for id in product(days_to_be_tested, scenarios
 
 
 class TestConfig:
+    __test__ = False
+
     def __init__(self, config):
         if config == None:
             config = {}
