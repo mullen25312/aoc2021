@@ -28,7 +28,7 @@ class TestConfig:
 
 
 @pytest.fixture(scope="class", params=product(days_to_be_tested, scenarios), ids=ids)
-def prepar_test(request):
+def prepare_test(request):
     with open(os.path.join(request.param[0], f"test_{request.param[1]}.yaml"), "r") as file:
         request.cls.test_config = TestConfig(yaml.load(file, Loader=yaml.FullLoader))
 
@@ -36,7 +36,7 @@ def prepar_test(request):
     request.cls.puzzle = importedModule.DailyPuzzle(os.path.join(request.param[0], f"{request.param[1]}.txt"))
 
 
-@pytest.mark.usefixtures("prepar_test")
+@pytest.mark.usefixtures("prepare_test")
 class Tests_d00:
     def test_part_one(self):
         self.puzzle.parse()
