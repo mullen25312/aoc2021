@@ -4,9 +4,9 @@ import numpy as np
 from functools import lru_cache
 from itertools import product
 
-quantom_die_triples = product((1, 2, 3), repeat=3)
-quantom_die_cnt = [sum(triple) for triple in quantom_die_triples]
-quantom_die_freq = {cnt: quantom_die_cnt.count(cnt) for cnt in quantom_die_cnt}
+quantum_die_triples = product((1, 2, 3), repeat=3)
+quantum_die_cnt = [sum(triple) for triple in quantum_die_triples]
+quantum_die_freq = {cnt: quantum_die_cnt.count(cnt) for cnt in quantum_die_cnt}
 
 
 @lru_cache(maxsize=None)
@@ -16,7 +16,7 @@ def play_round(turn, player_scores, player_positions):
         return np.array([1, 0]) if turn else np.array([0, 1])
 
     win = np.array([0, 0], dtype=np.int64)  # ensure that the number of universes fits !!!
-    for throw, freq in quantom_die_freq.items():
+    for throw, freq in quantum_die_freq.items():
         player_positions_new = ((player_positions[0] + throw * (turn == 0)) % 10, (player_positions[1] + throw * (turn == 1)) % 10)
         player_scores_new = (player_scores[0] + (player_positions_new[0] + 1) * (turn == 0), player_scores[1] + (player_positions_new[1] + 1) * (turn == 1))
         win += freq * play_round(1 - turn, player_scores_new, player_positions_new)
